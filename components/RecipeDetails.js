@@ -17,7 +17,7 @@ export default function RecipeDetails({route}) {
       </Text>
       <FlatList
         data={recipe.ingredients}
-        renderItem={({item}) => <Text>- {item.name}</Text>}
+        renderItem={({item}) => displayIngredient(item)}
         keyExtractor={item => item.name}
       />
     </View>
@@ -43,3 +43,21 @@ const styles = StyleSheet.create({
     marginBottom: 5
   }
 })
+
+function displayIngredient(ingredient) {
+  switch (ingredient.amount_unit) {
+    case 'whole':
+      return <Text>{ingredient.amount} {ingredient.name}</Text>
+
+    case 'g':
+    case 'ml':
+      return <Text>{ingredient.amount}{ingredient.amount_unit} of {ingredient.name}</Text>
+
+    case 'tbsp':
+    case 'tsp':
+      return <Text>{ingredient.amount} {ingredient.amount_unit} of {ingredient.name}</Text>
+
+    default:
+      return <Text>{ingredient.name}</Text>
+  }
+}
