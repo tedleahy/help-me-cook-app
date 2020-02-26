@@ -1,7 +1,7 @@
 // Viewing the details of a single recipe
 
 import React from 'react'
-import { Text, StyleSheet, ScrollView, FlatList } from 'react-native'
+import { Text, StyleSheet, ScrollView, FlatList, Image } from 'react-native'
 
 export default function RecipeDetails({route}) {
   const recipe = route.params.recipe.attributes
@@ -9,6 +9,11 @@ export default function RecipeDetails({route}) {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>{recipe.name}</Text>
+
+      <Image
+        style={styles.recipeImage}
+        source={{uri: recipe.image_url}}
+      />
 
       <Text style={styles.sectionHeader}>Ingredients</Text>
       <FlatList
@@ -45,6 +50,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     marginTop: 10
+  },
+  recipeImage: {
+    height: 250,
+    marginTop: 15
   }
 })
 
